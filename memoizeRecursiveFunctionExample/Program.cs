@@ -8,16 +8,16 @@ namespace memoizeRecursiveFunctionExample
 
         static void Main(string[] args)
         {
-            ulong max = 5000;
+            ulong fibonacciRow = 45;
 
             ReportExecution(() => {
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"Fibonacci memoizzata = {utility.FibonacciSumMemoized(max):N0}");
+                Console.WriteLine($"Ricorsione memoizzata = {utility.FibonacciSumMemoized(fibonacciRow):N0}");
             });
 
             ReportExecution(() => {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Fibonacci = {utility.FibonacciSum(max):N0}");
+                Console.WriteLine($"Ricorsione semplice = {utility.FibonacciSum(fibonacciRow):N0}");
             });
 
             Console.ReadKey();

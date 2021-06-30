@@ -6,7 +6,7 @@ namespace memoizeRecursiveFunctionExample
 {
     public class FibonacciUtility
     {
-        public static Dictionary<ulong, ulong> cache = new Dictionary<ulong, ulong>();
+        private static Dictionary<ulong, ulong> cache = new Dictionary<ulong, ulong>();
         private static ulong ans;
 
         public FibonacciUtility() {
