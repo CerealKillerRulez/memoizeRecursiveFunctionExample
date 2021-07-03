@@ -4,28 +4,52 @@ namespace memoizeRecursiveFunctionExample
 {
     class Program
     {
-        private static readonly FibonacciUtility utility = new FibonacciUtility();
+        private static readonly Fibonacci fibonacci = new Fibonacci();
+        private static ulong position = 35; //mid 35, max 93
 
         static void Main(string[] args)
         {
-            ulong fibonacciRow = 45;
+            DrawStartMessage();
 
-            ReportExecution(() => {
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"Ricorsione memoizzata = {utility.FibonacciSumMemoized(fibonacciRow):N0}");
-            });
+            ReportExecution(() =>
+                Console.WriteLine($"Funzione iterativa (posizione {position}) = {fibonacci.GetIterative(position):N0}"),
+                ConsoleColor.Red);
+            Console.ReadKey();
 
-            ReportExecution(() => {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Ricorsione semplice = {utility.FibonacciSum(fibonacciRow):N0}");
-            });
 
+            ReportExecution(() =>
+                Console.WriteLine($"Ricorsione memoizzata (posizione {position}) = {fibonacci.GetRecursiveMemoized(position):N0} (in {fibonacci.RecursionCalls:N0} ricorsioni)"),
+                ConsoleColor.Yellow);
+            Console.ReadKey();
+
+
+            ReportExecution(() =>                 
+                Console.WriteLine($"Ricorsione memoizzata (posizione {position + 5}) = {fibonacci.GetRecursiveMemoized(position + 5):N0} (in {fibonacci.RecursionCalls:N0} ricorsioni)"),
+                ConsoleColor.Yellow);
+            Console.ReadKey();
+
+
+            ReportExecution(() =>
+                Console.WriteLine($"Ricorsione semplice (posizione {position}) = {fibonacci.GetRecursive(position):N0} (in {fibonacci.RecursionCalls:N0} ricorsioni)"),
+                ConsoleColor.Green);
             Console.ReadKey();
         }
 
-        private static void ReportExecution(Action action)
+
+        private static void DrawStartMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine($"Numero della serie di Fibonacci alla posizione {position} (ENTER per calcolare):\n");
+            Console.ReadKey();
+        }
+
+
+        private static void ReportExecution(Action action, ConsoleColor color)
         {
             var startDate = DateTime.Now;
+
+            Console.ForegroundColor = color;
+            fibonacci.ResetCallsNumber();
 
             action();
 
